@@ -36,7 +36,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin: 0 2rem 5.5rem;  /* separación lateral y pie */
+      margin: 0 2rem 5.5rem;
       max-width: 1200px;
       margin-left: auto;
       margin-right: auto;
@@ -54,7 +54,7 @@
     /* PROGRESS LINE + DOTS + CHECKPOINTS */
     .pulse-container {
       max-width: 1200px;
-      margin: 3rem auto 1rem;    /* ↑ agregado margin-top: 2rem para separar del logo */
+      margin: 2rem auto 1rem;
       padding: 0 2rem;
     }
     .pulse-line {
@@ -72,22 +72,16 @@
       border-radius: 50%;
       animation: move-dot 12s linear infinite .3s;
     }
-
     .pulse-dot {
-    position: absolute;
-    top: -28px;
-    width: 62px;
-    height: 62px;
-    border: 4px solid var(--primary);
-    border-radius: 50%;
-    background-color: var(--light);
-    background-image: url('images/Dot.jpeg');
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: contain;    /* ← aquí */
-    animation: move-dot 12s linear infinite;
+      position: absolute;
+      top: -28px;
+      width: 65px;
+      height: 65px;
+      border: 4px solid var(--primary);
+      border-radius: 50%;
+      background: var(--light) url('images/Dot.jpg') center/contain no-repeat;
+      animation: move-dot 12s linear infinite;
     }
-
     @keyframes move-dot {
       0%   { left: 0%; }
       100% { left: 100%; }
@@ -195,14 +189,27 @@
       padding: .6rem 1.4rem;
       border-radius: .6rem;
       background: var(--secondary);
-      text-decoration: none;
       color: #000;
+      text-decoration: none;
       font-weight: 500;
       transition: transform .2s, box-shadow .2s;
     }
     .card a:hover {
       transform: translateY(-3px) scale(1.02);
       box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    }
+
+    /* HIDE TEXT IN MOBILE */
+    @media (max-width: 768px) {
+      .checkpoint-bubble span {
+        display: none;
+      }
+      .checkpoint-bubble {
+        padding: 4px;
+      }
+      .site-header h1 {
+        display: none;
+      }
     }
 
     /* FOOTER */
@@ -245,10 +252,10 @@
   <main class="container-main">
     <p class="lead">Explora nuestras demos por industria:</p>
     <div class="grid">
-      <div class="card"><div class="img-wrapper"><img src="images/Banca.png" alt="Banca"></div><h5>Banca</h5><p>Portal de préstamos y servicios financieros diseñado para acelerar tu experiencia bancaria.</p><a href="https://numiardo.github.io/numiabank/">Entrar</a></div>
+      <div class="card"><div class="img-wrapper"><img src="images/banca.png" alt="Banca"></div><h5>Banca</h5><p>Portal de préstamos y servicios financieros diseñado para acelerar tu experiencia bancaria.</p><a href="https://numiardo.github.io/numiabank/">Entrar</a></div>
       <div class="card"><div class="img-wrapper"><img src="images/Logistica.png" alt="Logística"></div><h5>Logística</h5><p>Gestión de flota y asignación de citas para la entrega y recogida de mercancías.</p><a href="https://numiardo.github.io/numialogistics/">Entrar</a></div>
       <div class="card"><div class="img-wrapper"><img src="images/care.png" alt="Salud"></div><h5>Salud</h5><p>Agendamiento de citas médicas y seguimiento de consultas de manera eficiente.</p><a href="https://numiardo.github.io/numiacare/">Entrar</a></div>
-      <div class="card"><div class="img-wrapper"><img src="images/Insurance.png" alt="Seguros"></div><h5>Seguros</h5><p>Administración de pólizas de seguros, siniestros y renovaciones en un solo lugar.</p><a href="https://numiardo.github.io/numiainsurance/">Entrar</a></div>
+      <div class="card"><div class="img-wrapper"><img src="images/insurance.png" alt="Seguros"></div><h5>Seguros</h5><p>Administración de pólizas de seguros, siniestros y renovaciones en un solo lugar.</p><a href="https://numiardo.github.io/numiainsurance/">Entrar</a></div>
       <div class="card"><div class="img-wrapper"><img src="images/retail.png" alt="Retail"></div><h5>Retail</h5><p>Soluciones para ventas, inventarios y programas de fidelización en retail.</p><a href="https://numiardo.github.io/numiaretail/">Entrar</a></div>
       <div class="card"><div class="img-wrapper"><img src="images/Proximamente.png" alt="Próximamente"></div><h5>Próximamente</h5><p>Más industrias y demos estarán disponibles muy pronto. ¡Mantente atento!</p></div>
     </div>
