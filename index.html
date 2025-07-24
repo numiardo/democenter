@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Numia Center – Demo Multi‑Industria</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/N.png"/>
+  <!-- Bootstrap CSS & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary: #863DFF;
+      --secondary: #CBFF2E;
+      --light: #fff;
+      --shadow: rgba(0,0,0,0.05);
+    }
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: var(--light);
+      color: #000;
+    }
+
+    /* HEADER */
+    .site-header {
+      position: sticky;
+      top: 0;
+      background: var(--light);
+      z-index: 1000;
+      border-bottom: 1px solid #ddd;
+      padding: 1.1rem 0;
+    }
+    .site-header .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 2rem 5.5rem;  /* separación lateral y pie */
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .site-header img {
+      height: 72px;
+      cursor: pointer;
+    }
+    .site-header h1 {
+      margin: 0;
+      font-size: 1.75rem;
+      font-weight: 700;
+    }
+
+    /* PROGRESS LINE + DOTS + CHECKPOINTS */
+    .pulse-container {
+      max-width: 1200px;
+      margin: 3rem auto 1rem;    /* ↑ agregado margin-top: 2rem para separar del logo */
+      padding: 0 2rem;
+    }
+    .pulse-line {
+      position: relative;
+      height: 4px;
+      background: var(--shadow);
+      overflow: visible;
+    }
+    .pulse-trail {
+      position: absolute;
+      top: -2px;
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: move-dot 12s linear infinite .3s;
+    }
+
+    .pulse-dot {
+    position: absolute;
+    top: -28px;
+    width: 62px;
+    height: 62px;
+    border: 4px solid var(--primary);
+    border-radius: 50%;
+    background-color: var(--light);
+    background-image: url('images/Dot.jpeg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;    /* ← aquí */
+    animation: move-dot 12s linear infinite;
+    }
+
+    @keyframes move-dot {
+      0%   { left: 0%; }
+      100% { left: 100%; }
+    }
+    .checkpoint {
+      position: absolute;
+      top: -75px;
+      display: flex;
+      justify-content: center;
+      width: 1px;
+    }
+    .checkpoint-bubble {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--light);
+      border: 2px solid var(--primary);
+      border-radius: 12px;
+      padding: 4px 8px;
+      font-size: .75rem;
+      box-shadow: 0 2px 8px var(--shadow);
+      transition: transform .3s ease;
+    }
+    .checkpoint:nth-of-type(1) { left: 20%; }
+    .checkpoint:nth-of-type(2) { left: 45%; }
+    .checkpoint:nth-of-type(3) { left: 70%; }
+    .checkpoint:nth-of-type(4) { left: 95%; transform: translateX(-100%); }
+    @keyframes bubble-pulse {
+      0%,100% { transform: scale(1); }
+      50%     { transform: scale(1.3); }
+    }
+    .pulse-trigger {
+      animation: bubble-pulse .6s ease;
+    }
+
+    /* MAIN & GRID & CARDS */
+    .container-main {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .lead {
+      font-size: 1.1rem;
+      text-align: center;
+      margin-bottom: 1.3rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      grid-auto-rows: 1fr;
+      gap: 2rem;
+    }
+    @media(max-width:992px){
+      .grid {
+        grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      }
+    }
+    .card {
+      background: var(--light);
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px var(--shadow);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .6s, transform .6s, box-shadow .2s;
+      border: 3px solid transparent;
+      border-image: linear-gradient(135deg,var(--primary),var(--secondary)) 1;
+    }
+    .card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    .img-wrapper {
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: .5rem;
+    }
+    .card h5 {
+      font-size: 1.2rem;
+      margin-bottom: .5rem;
+    }
+    .card p {
+      flex-grow: 1;
+      font-size: .95rem;
+      margin-bottom: 1.2rem;
+    }
+    .card a {
+      align-self: center;
+      padding: .6rem 1.4rem;
+      border-radius: .6rem;
+      background: var(--secondary);
+      text-decoration: none;
+      color: #000;
+      font-weight: 500;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .card a:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    }
+
+    /* FOOTER */
+    .site-footer {
+      background: #fafafa;
+      border-top: 1px solid #ddd;
+      padding: 1rem 0;
+      text-align: center;
+      font-size: .9rem;
+      color: #555;
+    }
+    .site-footer a {
+      color: var(--primary);
+      text-decoration: none;
+      margin-left: .5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-content">
+      <img src="images/numia.png" alt="Numia Logo" onclick="location.href='https://numia.co';">
+      <h1>Demo Center</h1>
+    </div>
+    <div class="pulse-container">
+      <div class="pulse-line">
+        <div class="checkpoint"><div class="checkpoint-bubble"><i class="bi bi-laptop"></i><span>Web</span></div></div>
+        <div class="checkpoint"><div class="checkpoint-bubble"><i class="bi bi-building"></i><span>Sucursal</span></div></div>
+        <div class="checkpoint"><div class="checkpoint-bubble"><i class="bi bi-headset"></i><span>Videollamada</span></div></div>
+        <div class="checkpoint"><div class="checkpoint-bubble"><i class="bi bi-star-fill"></i><span>Success</span></div></div>
+        <div class="pulse-trail"></div>
+        <div class="pulse-dot"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="container-main">
+    <p class="lead">Explora nuestras demos por industria:</p>
+    <div class="grid">
+      <div class="card"><div class="img-wrapper"><img src="images/banca.png" alt="Banca"></div><h5>Banca</h5><p>Portal de préstamos y servicios financieros diseñado para acelerar tu experiencia bancaria.</p><a href="https://numiardo.github.io/numiabank/">Entrar</a></div>
+      <div class="card"><div class="img-wrapper"><img src="images/Logistica.png" alt="Logística"></div><h5>Logística</h5><p>Gestión de flota y asignación de citas para la entrega y recogida de mercancías.</p><a href="https://numiardo.github.io/numialogistics/">Entrar</a></div>
+      <div class="card"><div class="img-wrapper"><img src="images/care.png" alt="Salud"></div><h5>Salud</h5><p>Agendamiento de citas médicas y seguimiento de consultas de manera eficiente.</p><a href="https://numiardo.github.io/numiacare/">Entrar</a></div>
+      <div class="card"><div class="img-wrapper"><img src="images/insurance.png" alt="Seguros"></div><h5>Seguros</h5><p>Administración de pólizas de seguros, siniestros y renovaciones en un solo lugar.</p><a href="https://numiardo.github.io/numiainsurance/">Entrar</a></div>
+      <div class="card"><div class="img-wrapper"><img src="images/retail.png" alt="Retail"></div><h5>Retail</h5><p>Soluciones para ventas, inventarios y programas de fidelización en retail.</p><a href="https://numiardo.github.io/numiaretail/">Entrar</a></div>
+      <div class="card"><div class="img-wrapper"><img src="images/Proximamente.png" alt="Próximamente"></div><h5>Próximamente</h5><p>Más industrias y demos estarán disponibles muy pronto. ¡Mantente atento!</p></div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    &copy; 2025 Numia. Todos los derechos reservados.
+    <a href="https://numia.co" target="_blank">numia.co</a>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const cards = document.querySelectorAll('.card');
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      cards.forEach(c => observer.observe(c));
+
+      const dot = document.querySelector('.pulse-dot');
+      const bubbles = document.querySelectorAll('.checkpoint-bubble');
+      const cycle = 12000;
+      const delays = [0.17, 0.42, 0.67, 0.92];
+      function triggerPulse() {
+        bubbles.forEach((bubble, i) => {
+          setTimeout(() => {
+            bubble.classList.add('pulse-trigger');
+            setTimeout(() => bubble.classList.remove('pulse-trigger'), 600);
+          }, cycle * delays[i]);
+        });
+      }
+      dot.addEventListener('animationiteration', triggerPulse);
+      triggerPulse();
+    });
+  </script>
+</body>
+</html>
